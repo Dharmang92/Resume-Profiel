@@ -7,10 +7,37 @@ if (isset($_POST["cancel"])) {
     return;
 }
 
-if (isset($_SESSION["name"])) {
-    // then do validation of fields (All fields are required, Email address must contain @) and then add record.
+if (!isset($_SESSION["name"])) {
+    die("ACCESSS DENIED");
 }
 
+if (isset($_POST["first_name"]) && isset($_POST["last_name"]) && isset($_POST["email"]) && isset($_POST["headline"]) && isset($_POST["summary"])) {
+    if (strlen($_POST["first_name"]) < 1 || strlen($_POST["last_name"]) < 1 || strlen($_POST["email"]) < 1 || strlen($_POST["headline"]) < 1 || strlen($_POST["summary"]) < 1) {
+        $_SESSION["addfail"] = "All fields are required";
+        header("Location: add.php");
+        return;
+    } else {
+        if (strpos($_POST["email"], "@") !== false) {
+            $stmt = $pdo->prepare("insert into profile(user_id, first_name, last_name, email, headline, summary) values(:id, :fn, :ln, :em, :hd, :sm);");
+            $stmt->execute(array(
+                ":id" => $_SESSION["user_id"],
+                ":fn" => $_POST["first_name"],
+                ":ln" => $_POST["last_name"],
+                "em" => $_POST["email"],
+                ":hd" => $_POST["headline"],
+                ":sm" => $_POST["summary"]
+            ));
+
+            $_SESSION["success"] = "Profile added";
+            header("Location: index.php");
+            return;
+        } else {
+            $_SESSION["addfail"] = "Email address must contain @";
+            header("Location: add.php");
+            return;
+        }
+    }
+}
 ?>
 
 <html>
@@ -36,7 +63,7 @@ if (isset($_SESSION["name"])) {
             <p>First Name: <input type="text" name="first_name" size="60" /></p>
             <p>Last Name: <input type="text" name="last_name" size="60" /></p>
             <p>Email: <input type="text" name="email" size="30" /></p>
-            <p>Headline: <br /><input type="text" name="email" size="80" /></p>
+            <p>Headline: <br /><input type="text" name="headline" size="80" /></p>
             <p>Summary: <br /><textarea name="summary" cols="80" rows="8"></textarea>
                 <p><input type="submit" value="Add"> <input type="submit" name="cancel" value="Cancel"></p>
         </form>
