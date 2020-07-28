@@ -13,7 +13,7 @@ if (!isset($_SESSION["name"])) {
 
 if (isset($_POST["first_name"]) && isset($_POST["last_name"]) && isset($_POST["email"]) && isset($_POST["headline"]) && isset($_POST["summary"])) {
     if (strlen($_POST["first_name"]) < 1 || strlen($_POST["last_name"]) < 1 || strlen($_POST["email"]) < 1 || strlen($_POST["headline"]) < 1 || strlen($_POST["summary"]) < 1) {
-        $_SESSION["addfail"] = "All fields are required";
+        $_SESSION["fail"] = "All fields are required";
         header("Location: add.php");
         return;
     } else {
@@ -32,7 +32,7 @@ if (isset($_POST["first_name"]) && isset($_POST["last_name"]) && isset($_POST["e
             header("Location: index.php");
             return;
         } else {
-            $_SESSION["addfail"] = "Email address must contain @";
+            $_SESSION["fail"] = "Email address must contain @";
             header("Location: add.php");
             return;
         }
@@ -54,9 +54,9 @@ if (isset($_POST["first_name"]) && isset($_POST["last_name"]) && isset($_POST["e
     <div class="container">
         <h1>Adding Profile for <?= htmlentities($_SESSION["name"]) ?></h1>
         <?php
-        if (isset($_SESSION["addfail"])) {
-            echo "<p style='color: red'>" . htmlentities($_SESSION["addfail"]) . "</p>";
-            unset($_SESSION["addfail"]);
+        if (isset($_SESSION["fail"])) {
+            echo "<p style='color: red'>" . htmlentities($_SESSION["fail"]) . "</p>";
+            unset($_SESSION["fail"]);
         }
         ?>
         <form method="post">

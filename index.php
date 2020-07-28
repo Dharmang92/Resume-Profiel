@@ -24,12 +24,17 @@ session_start();
                 echo "<p style='color: green'>" . htmlentities($_SESSION["success"]) . "</p>";
                 unset($_SESSION["success"]);
             }
+            if (isset($_SESSION["error"])) {
+                echo "<p style='color: red'>" . htmlentities($_SESSION["error"]) . "</p>";
+                unset($_SESSION["error"]);
+            }
             echo "<p><a href='logout.php'>Logout</a></p>";
             viewTable();
             echo "<p></p>";
             echo "<p><a href='add.php'>Add New Entry</a></p>";
         } else {
             echo "<p><a href='login.php'>Please log in</a></p>";
+            viewTable();
         }
 
         function viewTable()
@@ -48,7 +53,7 @@ session_start();
                     echo "<tr>";
                     echo "<td>" . htmlentities($row["first_name"]) . " " . htmlentities($row["last_name"]) . "</td>";
                     echo  "<td>" . htmlentities($row["headline"]) . "</td>";
-                    echo  "<td>" . "<a href='?edit.php=" . $row['profile_id'] . "'>Edit</a> <a href='?delete.php" . $row['profile_id'] . "'>Delete</a>" . "</td>";
+                    echo  "<td>" . "<a href='edit.php?profile_id=" . $row['profile_id'] . "'>Edit</a> <a href='delete.php?profile_id=" . $row['profile_id'] . "'>Delete</a>" . "</td>";
                     echo "</tr>";
                 }
                 echo "</table>";
