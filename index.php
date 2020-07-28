@@ -16,7 +16,7 @@ session_start();
 
 <body>
     <div class="container">
-        <h1>Dharmang Gajjar's Resume Registery</h1>
+        <h1>Dharmang Gajjar's Resume Registry</h1>
 
         <?php
         if (isset($_SESSION["user_id"])) {

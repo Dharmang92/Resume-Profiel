@@ -82,7 +82,7 @@ if (isset($_POST["first_name"]) && isset($_POST["last_name"]) && isset($_POST["e
             <p>Headline: <br /><input type="text" name="headline" size="80" value="<?= $h ?>" /></p>
             <p>Summary: <br /><textarea name="summary" cols="80" rows="8"><?= $s ?></textarea>
                 <input type="hidden" name="profile_id" value="<?= $id ?>" />
-                <p><input type="submit" value="Add"> <input type="submit" name="cancel" value="Cancel"></p>
+                <p><input type="submit" value="Save"> <input type="submit" name="cancel" value="Cancel"></p>
         </form>
     </div>
 </body>
