@@ -23,7 +23,7 @@ $stmt = $pdo->prepare("select profile_id, first_name, last_name, headline, email
 $stmt->execute(array(":pid" => $_GET["profile_id"]));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row === false) {
-    $_SESSION['error'] = 'Bad value for profile_id';
+    $_SESSION['error'] = 'Missing profile_id';
     header('Location: index.php');
     return;
 }
