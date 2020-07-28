@@ -17,8 +17,6 @@ session_start();
     <div class="container">
         <h1>Dharmang Gajjar's Resume Registery</h1>
 
-        <!-- flash message display here -->
-
         <?php
         function viewTable()
         {
